@@ -1,4 +1,4 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "troubleshooting-app"
@@ -13,13 +13,18 @@ spec:
       labels:
         app: "troubleshooting-app"
     spec:
+      tolerations:
+      - key: taint-test
+        operator: Equal
+        value: taint-value
+        effect: NoSchedule
       containers:
         - name: "troubleshooting-app"
           image: cepgbaseacr.azurecr.io/troubleshooting:latest
           resources:
             limits:
-              memory: 64Mi
-              cpu: 50m
+              memory: "512Mi"
+              cpu: "500m"
             requests:
-              memory: 32Mi
-              cpu: 25m
+              memory: "256Mi"
+              cpu: "200m"
